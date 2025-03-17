@@ -1,0 +1,15 @@
+{
+  "originHash" : "5b558c6a8b9f6f1385cf0af023ab5e287776843dc7b6b3ff64b69ec5484211c2",
+  "pins" : [
+    {
+      "identity" : "ihttp_client",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/fox-avokadik/ihttp_client.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "a3bd6eeef41e435e71abde3095c602d5fee8662c"
+      }
+    }
+  ],
+  "version" : 3
+}
