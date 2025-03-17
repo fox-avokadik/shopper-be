@@ -25,8 +25,6 @@ final class RefreshTokenInterceptor: Interceptor {
     }
   }
   
-  public func didReceive(response: URLResponse, data: Data) { }
-  
   public func onError<T: Decodable>(
     response: HTTPURLResponse,
     data: Data,
