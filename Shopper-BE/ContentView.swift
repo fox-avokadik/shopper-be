@@ -70,13 +70,14 @@ struct ContentView: View {
     
     do {
       await client.addInterceptor(
-        RefreshTokenInterceptor(
-          tokenStorage: KeychainTokenStorage(),
-          refreshTokenEndpoint: "/tokens/refresh"
-        )
+        CookieInterceptor()
       )
       
-      let response: HTTPResponse<AuthResponse> = try await client.request(path, method: method, parameters: body)
+      let response: HTTPResponse<AuthenticationResponse> = try await client.request(
+        path,
+        method: method,
+        parameters: body
+      )
       
       // ✅ Зберігаємо токен
       let token = response.data.accessToken
@@ -110,34 +111,3 @@ struct ContentView: View {
 #Preview {
   ContentView()
 }
-
-
-// MARK: - Tested data models
-
-actor SafeHttpClient {
-    private let client: IHttpClient
-    
-    init(client: IHttpClient) {
-        self.client = client
-    }
-    
-    // Асинхронні методи, які взаємодіють з IHttpClient
-}
-
-struct AuthResponse: Codable, Sendable {
-  let accessToken: String
-  let userDetails: UserDetails
-  let createdAt: String
-  let refreshTokenExpiredAt: Int
-  let accessTokenExpiredAt: Int
-  let accessTokenLifeTime: Int
-}
-
-struct UserDetails: Codable, Sendable {
-  let userId: String
-  let email: String
-  let fullName: String
-  let role: String
-  let createdAt: String
-}
-
