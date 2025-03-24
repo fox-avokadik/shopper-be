@@ -9,13 +9,15 @@ import Foundation
 import IHttpClient
 
 final class CookieInterceptor: Interceptor {
+  private let refreshTokenEndpoint = "/token/refresh"
   private let refrehsTokenCookieName = "refreshToken"
   
   public func willSend(request: inout URLRequest) {
-    if let refreshToken = TokenStorage.getToken(type: .refresh) {
-      let cookie = "\(refrehsTokenCookieName)=\(refreshToken); Path=/; HttpOnly"
-      request.setValue(cookie, forHTTPHeaderField: "Cookie")
+    guard shouldAttachRefreshToken(to: request), let refreshToken = TokenStorage.getToken(type: .refresh) else {
+      return
     }
+    
+    request.setValue(makeRefreshTokenCookie(refreshToken), forHTTPHeaderField: "Cookie")
   }
   
   public func didReceive(response: URLResponse, data: Data) {
@@ -31,6 +33,14 @@ final class CookieInterceptor: Interceptor {
       let accessToken = authenticationResponse.accessToken
       TokenStorage.save(token: accessToken, type: .access)
     }
+  }
+  
+  private func shouldAttachRefreshToken(to request: URLRequest) -> Bool {
+    return request.url?.path == refreshTokenEndpoint
+  }
+  
+  private func makeRefreshTokenCookie(_ token: String) -> String {
+    return "\(refrehsTokenCookieName)=\(token); Path=/; HttpOnly"
   }
   
   private func extractRefreshToken(from setCookieHeader: String) -> String? {
