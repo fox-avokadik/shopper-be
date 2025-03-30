@@ -9,9 +9,9 @@ import SwiftUI
 
 @main
 struct Shopper_BEApp: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-        }
+  var body: some Scene {
+    WindowGroup {
+      LoginView()
     }
+  }
 }
