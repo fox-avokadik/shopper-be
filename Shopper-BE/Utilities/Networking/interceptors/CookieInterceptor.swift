@@ -9,7 +9,7 @@ import Foundation
 import IHttpClient
 
 final class CookieInterceptor: Interceptor {
-  private let refreshTokenEndpoint = "/token/refresh"
+  private let refreshTokenEndpoint = "/refresh"
   private let refrehsTokenCookieName = "refreshToken"
   
   public func willSend(request: inout URLRequest) {

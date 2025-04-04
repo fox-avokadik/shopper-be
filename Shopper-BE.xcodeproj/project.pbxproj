@@ -14,9 +14,22 @@
 		31E65BDD2D84D1FB00EDC3CF /* Shopper-BE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Shopper-BE.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		313692072D9FCE5A00B328A7 /* Exceptions for "Shopper-BE" folder in "Shopper-BE" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Resources/Info.plist,
+			);
+			target = 31E65BDC2D84D1FB00EDC3CF /* Shopper-BE */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		31E65BDF2D84D1FB00EDC3CF /* Shopper-BE */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				313692072D9FCE5A00B328A7 /* Exceptions for "Shopper-BE" folder in "Shopper-BE" target */,
+			);
 			path = "Shopper-BE";
 			sourceTree = "<group>";
 		};
@@ -260,10 +273,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Shopper-BE/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Shopper-BE/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = 935VS7MVG9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Shopper-BE/Resources/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -292,10 +306,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Shopper-BE/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Shopper-BE/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = 935VS7MVG9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Shopper-BE/Resources/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
