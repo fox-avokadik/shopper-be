@@ -100,7 +100,7 @@ final class RefreshTokenInterceptor: Interceptor {
       await refreshState.setRefreshing(true)
       
       do {
-        let tokenResponse = try await performTokenRefresh()
+        _ = try await performTokenRefresh()
         
         await notifyRefreshCompletion(true)
         return true

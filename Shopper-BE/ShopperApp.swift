@@ -22,8 +22,3 @@ struct ShopperApp: App {
     }
   }
 }
-
-@MainActor
-final class AppState: ObservableObject {
-  @Published var isReady = false
-}

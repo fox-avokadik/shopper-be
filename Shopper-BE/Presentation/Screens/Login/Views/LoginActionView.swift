@@ -12,7 +12,7 @@ struct LoginActionView: View {
   
   var body: some View {
     Group {
-      if viewModel.isLoading {
+      if viewModel.authStatus == AuthStatus.loading {
         ProgressView()
       } else {
         LoginButton(viewModel: viewModel)

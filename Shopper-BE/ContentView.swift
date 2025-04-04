@@ -13,7 +13,7 @@ struct ContentView: View {
   
   var body: some View {
     if appState.isReady {
-      LoginView()
+      RouterView()
     } else {
       ProgressView()
         .frame(maxWidth: .infinity, maxHeight: .infinity)

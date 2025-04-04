@@ -27,6 +27,9 @@ actor DependencyInjector {
     ServiceContainer.shared.register(authenticationRepository)
     ServiceContainer.shared.register(loginUseCase)
     
+    let appRouter = AppRouter()
+    ServiceContainer.shared.register(appRouter)
+    
     await MainActor.run {
       let loginViewModel = LoginViewModel(loginUseCase: loginUseCase)
       ServiceContainer.shared.register(loginViewModel)

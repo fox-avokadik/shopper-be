@@ -1,56 +1,12 @@
-//
-//  LoginView.swift
-//  Shopper-BE
-//
-//  Created by Stepan Bezhuk on 25.03.2025.
-//
-
-//import SwiftUI
-//
-//struct LoginView: View {
-//  @StateObject private var viewModel: LoginViewModel
-//
-//  init() {
-//    if let viewModel: LoginViewModel = ServiceContainer.shared.resolve() {
-//      self._viewModel = StateObject(wrappedValue: viewModel)
-//    }  else {
-//      fatalError("LoginViewModel not found in DI container.")
-//    }
-//  }
-//
-//  var body: some View {
-//    VStack {
-//      LoginHeaderView()
-//
-//      LoginFormView(viewModel: viewModel)
-//
-//      if viewModel.isLoading {
-//        ProgressView()
-//      } else {
-//        LoginButton(viewModel: viewModel)
-//      }
-//    }
-//    .padding(.horizontal, 25)
-//    .padding(.vertical)
-//  }
-//}
-//
-//#Preview {
-//  LoginView()
-//}
-
-
 import SwiftUI
 
 struct LoginView: View {
+  @StateObject private var appRouter: AppRouter
   @StateObject private var viewModel: LoginViewModel
   
-  init() {
-    if let viewModel: LoginViewModel = ServiceContainer.shared.resolve() {
-      self._viewModel = StateObject(wrappedValue: viewModel)
-    }  else {
-      fatalError("LoginViewModel not found in DI container.")
-    }
+  init(viewModel: LoginViewModel, appRouter: AppRouter) {
+    self._viewModel = StateObject(wrappedValue: viewModel)
+    self._appRouter = StateObject(wrappedValue: appRouter)
   }
   
   var body: some View {
@@ -60,6 +16,11 @@ struct LoginView: View {
       LoginInputFieldsView(viewModel: viewModel)
       
       LoginActionView(viewModel: viewModel)
+    }
+    .onChange(of: viewModel.authStatus) {
+      if viewModel.authStatus == AuthStatus.success {
+        appRouter.navigate(to: .home)
+      }
     }
   }
 }
