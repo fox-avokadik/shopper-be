@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct HomeView: View {
-    var body: some View {
-        Text("Hello, World!")
+  var body: some View {
+    Button {
+      let authenticationManager: AuthenticationManager = ServiceContainer.shared.resolve()
+      authenticationManager.logout()
+    } label: {
+      Text("Back")
     }
-}
-
-#Preview {
-    HomeView()
+  }
 }

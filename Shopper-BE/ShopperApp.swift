@@ -13,12 +13,16 @@ struct ShopperApp: App {
   
   var body: some Scene {
     WindowGroup {
-      ContentView()
-        .environmentObject(appState)
-        .task {
-          await DependencyInjector.shared.registerDependencies()
-          appState.isReady = true
-        }
+      if appState.isReady {
+        AppRootView()
+          .environmentObject(appState)
+      } else {
+        ProgressView()
+          .task {
+            await DependencyInjector.shared.registerDependencies()
+            appState.isReady = true
+          }
+      }
     }
   }
 }

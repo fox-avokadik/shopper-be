@@ -1,12 +1,12 @@
 import SwiftUI
 
 struct LoginView: View {
-  @StateObject private var appRouter: AppRouter
   @StateObject private var viewModel: LoginViewModel
+  @StateObject private var coordinator: AppCoordinator
   
-  init(viewModel: LoginViewModel, appRouter: AppRouter) {
+  init(viewModel: LoginViewModel, coordinator: AppCoordinator) {
     self._viewModel = StateObject(wrappedValue: viewModel)
-    self._appRouter = StateObject(wrappedValue: appRouter)
+    self._coordinator = StateObject(wrappedValue: coordinator)
   }
   
   var body: some View {
@@ -19,7 +19,7 @@ struct LoginView: View {
     }
     .onChange(of: viewModel.authStatus) {
       if viewModel.authStatus == AuthStatus.success {
-        appRouter.navigate(to: .home)
+        coordinator.navigateToHome()
       }
     }
   }

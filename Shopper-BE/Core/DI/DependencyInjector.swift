@@ -20,15 +20,21 @@ actor DependencyInjector {
     let httpClient = IHttpClient(baseURL: "http://185.233.119.229:8080")
     ServiceContainer.shared.register(httpClient)
     
+    let authenticationStorageService = AuthenticationStorageService()
+    ServiceContainer.shared.register(authenticationStorageService)
+    
+    let authenticationManager = AuthenticationManager(authenticationStorage: authenticationStorageService)
+    ServiceContainer.shared.register(authenticationManager)
+    
+    let coordinator = AppCoordinator()
+    ServiceContainer.shared.register(coordinator)
+    
     let authenticationService = AuthenticationService(httpClient: httpClient)
     let authenticationRepository = AuthenticationRepository(authenticationService: authenticationService)
     let loginUseCase = LoginUseCase(authenticationRepository: authenticationRepository)
     
     ServiceContainer.shared.register(authenticationRepository)
     ServiceContainer.shared.register(loginUseCase)
-    
-    let appRouter = AppRouter()
-    ServiceContainer.shared.register(appRouter)
     
     await MainActor.run {
       let loginViewModel = LoginViewModel(loginUseCase: loginUseCase)

@@ -9,11 +9,11 @@ import Foundation
 import IHttpClient
 
 final class RefreshTokenInterceptor: Interceptor {
-  // MARK: - Properties
   private let authenticationHeaderName = "Authorization"
   private let authenticationHeaderPrefix = "Bearer "
   
   private let refreshLock = NSLock()
+  
   private actor RefreshState {
     private var isRefreshing = false
     private var refreshCompletionHandlers = [(Bool) -> Void]()
@@ -39,13 +39,29 @@ final class RefreshTokenInterceptor: Interceptor {
   
   private let refreshState = RefreshState()
   
-  // MARK: - Interceptor Methods
-  
-  func willSend(request: inout URLRequest) {
-    if let accessToken = TokenStorage.getToken(type: .access) {
-      request.addValue("\(authenticationHeaderPrefix)\(accessToken)", forHTTPHeaderField: authenticationHeaderName)
+  func willSend(request: inout URLRequest) async {
+    let authenticationStorage: AuthenticationStorageService = ServiceContainer.shared.resolve()
+    
+    guard let auth = authenticationStorage.loadAuthResponse() else { return }
+    let now = Int(Date().timeIntervalSince1970)
+    
+    if auth.accessTokenExp > now {
+      setAuthorizationHeader(&request, token: auth.accessToken)
+      return
+    }
+    
+    if auth.refreshTokenExp > now, authenticationStorage.loadRefreshToken() != nil, await refreshTokenIfNeeded() {
+      if let updatedAuth = authenticationStorage.loadAuthResponse() {
+        setAuthorizationHeader(&request, token: updatedAuth.accessToken)
+      }
+    } else {
+      DispatchQueue.main.async {
+        let authenticationManager: AuthenticationManager = ServiceContainer.shared.resolve()
+        authenticationManager.logout()
+      }
     }
   }
+  
   
   func onError<T: Decodable>(
     response: HTTPURLResponse,
@@ -69,6 +85,10 @@ final class RefreshTokenInterceptor: Interceptor {
   
   // MARK: - Private Methods
   
+  private func setAuthorizationHeader(_ request: inout URLRequest, token: String) {
+    request.addValue("\(authenticationHeaderPrefix)\(token)", forHTTPHeaderField: authenticationHeaderName)
+  }
+  
   /// Refreshes the authentication token if needed
   /// - Returns: Boolean indicating whether the refresh was successful
   private func refreshTokenIfNeeded() async -> Bool {
@@ -82,7 +102,8 @@ final class RefreshTokenInterceptor: Interceptor {
       }
     }
     
-    guard let refreshToken = TokenStorage.getToken(type: .refresh) else {
+    let authStorageService = AuthenticationStorageService()
+    guard authStorageService.loadRefreshToken() != nil else {
       return false
     }
     
@@ -115,12 +136,12 @@ final class RefreshTokenInterceptor: Interceptor {
   /// - Parameter refreshToken: The current refresh token
   /// - Returns: The new token response
   private func performTokenRefresh() async throws -> AuthenticationResponse {
-    let client = IHttpClient(baseURL: "https://sandbox.way2ten.com")
+    let client = IHttpClient(baseURL: "http://185.233.119.229:8080")
     
     await client.addInterceptor(CookieInterceptor())
     
     let response: HTTPResponse<AuthenticationResponse> = try await client.request(
-      "/tokens/refresh",
+      "/refresh",
       method: .post
     )
     

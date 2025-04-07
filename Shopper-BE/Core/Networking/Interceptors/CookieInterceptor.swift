@@ -13,7 +13,9 @@ final class CookieInterceptor: Interceptor {
   private let refrehsTokenCookieName = "refreshToken"
   
   public func willSend(request: inout URLRequest) {
-    guard shouldAttachRefreshToken(to: request), let refreshToken = TokenStorage.getToken(type: .refresh) else {
+    let authenticationStorage: AuthenticationStorageService = ServiceContainer.shared.resolve()
+    
+    guard shouldAttachRefreshToken(to: request), let refreshToken = authenticationStorage.loadRefreshToken() else {
       return
     }
     
@@ -23,15 +25,16 @@ final class CookieInterceptor: Interceptor {
   public func didReceive(response: URLResponse, data: Data) {
     guard let httpResponse = response as? HTTPURLResponse else { return }
     
+    let authenticationStorage: AuthenticationStorageService = ServiceContainer.shared.resolve()
+    
     if let setCookieHeader = httpResponse.allHeaderFields["Set-Cookie"] as? String {
       if let refreshToken = extractRefreshToken(from: setCookieHeader) {
-        TokenStorage.save(token: refreshToken, type: .refresh)
+        authenticationStorage.saveRefreshToken(refreshToken)
       }
     }
     
     if let authenticationResponse = extractAccessToken(from: data) {
-      let accessToken = authenticationResponse.accessToken
-      TokenStorage.save(token: accessToken, type: .access)
+      authenticationStorage.saveAuthResponse(authenticationResponse)
     }
   }
   

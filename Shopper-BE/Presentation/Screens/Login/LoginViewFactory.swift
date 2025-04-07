@@ -9,9 +9,9 @@ import SwiftUI
 
 class LoginViewFactory {
   static func createLoginView() -> some View {
-    let viewModel: LoginViewModel = ServiceContainer.shared.resolve()!
-    let appRouter: AppRouter = ServiceContainer.shared.resolve()!
+    let viewModel: LoginViewModel = ServiceContainer.shared.resolve()
+    let coordinator: AppCoordinator = ServiceContainer.shared.resolve()
     
-    return LoginView(viewModel: viewModel, appRouter: appRouter)
+    return LoginView(viewModel: viewModel, coordinator: coordinator)
   }
 }

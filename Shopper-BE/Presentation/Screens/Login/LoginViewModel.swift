@@ -10,7 +10,6 @@ import IHttpClient
 
 @MainActor
 class LoginViewModel: ObservableObject {
-  
   private let loginUseCase: LoginUseCase
   
   @Published var email: String = ""

@@ -14,15 +14,14 @@ class ServiceContainer {
   
   private init() {}
   
-  func register<T>(_ service: T) {
-    let key = String(describing: T.self)
-    
+  func register<T>(_ service: T, for protocolType: T.Type = T.self) {
+    let key = String(describing: protocolType)
     services[key] = service
   }
   
-  func resolve<T>() -> T? {
-    let key = String(describing: T.self)
-  
+  func resolve<T>(_ protocolType: T.Type = T.self) -> T {
+    let key = String(describing: protocolType)
+    
     guard let service = services[key] as? T else {
       fatalError("Dependency \(key) not found in container")
     }

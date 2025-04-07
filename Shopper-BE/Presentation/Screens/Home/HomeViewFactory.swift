@@ -9,6 +9,6 @@ import SwiftUI
 
 class HomeViewFactory {
   static func createHomeView() -> some View {
-    HomeView()
+    return HomeView()
   }
 }

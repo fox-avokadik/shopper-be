@@ -7,10 +7,14 @@
 
 struct AuthenticationResponse: Codable {
   let accessToken: String
+  let accessTokenExp: Int
+  let refreshTokenExp: Int
   let user: User
   
   enum CodingKeys: String, CodingKey {
     case accessToken
+    case accessTokenExp
+    case refreshTokenExp
     case user
   }
 }
