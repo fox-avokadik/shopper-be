@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3108B6D02D880EE70072E76A /* IHttpClient in Frameworks */ = {isa = PBXBuildFile; productRef = 3108B6CF2D880EE70072E76A /* IHttpClient */; };
-		31111A402DA420DF002547DD /* NavigationTransitions in Frameworks */ = {isa = PBXBuildFile; productRef = 31111A3F2DA420DF002547DD /* NavigationTransitions */; };
+		318524BC2DA95B7E00036359 /* IHttpClient in Frameworks */ = {isa = PBXBuildFile; productRef = 318524BB2DA95B7E00036359 /* IHttpClient */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,8 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3108B6D02D880EE70072E76A /* IHttpClient in Frameworks */,
-				31111A402DA420DF002547DD /* NavigationTransitions in Frameworks */,
+				318524BC2DA95B7E00036359 /* IHttpClient in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,8 +83,7 @@
 			);
 			name = "Shopper-BE";
 			packageProductDependencies = (
-				3108B6CF2D880EE70072E76A /* IHttpClient */,
-				31111A3F2DA420DF002547DD /* NavigationTransitions */,
+				318524BB2DA95B7E00036359 /* IHttpClient */,
 			);
 			productName = "Shopper-BE";
 			productReference = 31E65BDD2D84D1FB00EDC3CF /* Shopper-BE.app */;
@@ -117,8 +114,7 @@
 			mainGroup = 31E65BD42D84D1FB00EDC3CF;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				3108B6CE2D880EE70072E76A /* XCRemoteSwiftPackageReference "ihttp_client" */,
-				31111A3E2DA420DF002547DD /* XCRemoteSwiftPackageReference "swiftui-navigation-transitions" */,
+				318524BA2DA95B7E00036359 /* XCRemoteSwiftPackageReference "ihttp_client" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 31E65BDE2D84D1FB00EDC3CF /* Products */;
@@ -360,34 +356,21 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		3108B6CE2D880EE70072E76A /* XCRemoteSwiftPackageReference "ihttp_client" */ = {
+		318524BA2DA95B7E00036359 /* XCRemoteSwiftPackageReference "ihttp_client" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/fox-avokadik/ihttp_client.git";
+			repositoryURL = "https://github.com/fox-avokadik/ihttp_client";
 			requirement = {
 				branch = main;
 				kind = branch;
 			};
 		};
-		31111A3E2DA420DF002547DD /* XCRemoteSwiftPackageReference "swiftui-navigation-transitions" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/fox-avokadik/swiftui-navigation-transitions.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.14.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		3108B6CF2D880EE70072E76A /* IHttpClient */ = {
+		318524BB2DA95B7E00036359 /* IHttpClient */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3108B6CE2D880EE70072E76A /* XCRemoteSwiftPackageReference "ihttp_client" */;
+			package = 318524BA2DA95B7E00036359 /* XCRemoteSwiftPackageReference "ihttp_client" */;
 			productName = IHttpClient;
-		};
-		31111A3F2DA420DF002547DD /* NavigationTransitions */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 31111A3E2DA420DF002547DD /* XCRemoteSwiftPackageReference "swiftui-navigation-transitions" */;
-			productName = NavigationTransitions;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

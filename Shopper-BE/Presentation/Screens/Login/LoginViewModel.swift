@@ -12,8 +12,13 @@ import IHttpClient
 class LoginViewModel: ObservableObject {
   private let loginUseCase: LoginUseCase
   
+  #if DEBUG
+  @Published var email: String = "john@example.com"
+  @Published var password: String = "!Password1"
+  #else
   @Published var email: String = ""
   @Published var password: String = ""
+  #endif
   @Published var errorMessage: String?
   @Published var authStatus: AuthStatus = .idle
   

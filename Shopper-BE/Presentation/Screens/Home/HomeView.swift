@@ -8,10 +8,15 @@
 import SwiftUI
 
 struct HomeView: View {
+  let onLogout: () -> Void
+  
+  init(onLogout: @escaping () -> Void) {
+    self.onLogout = onLogout
+  }
+  
   var body: some View {
     Button {
-      let authenticationManager: AuthenticationManager = ServiceContainer.shared.resolve()
-      authenticationManager.logout()
+      onLogout()
     } label: {
       Text("Back")
     }

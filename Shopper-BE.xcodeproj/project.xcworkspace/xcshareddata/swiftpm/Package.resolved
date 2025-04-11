@@ -1,5 +1,5 @@
 {
-  "originHash" : "780c34e701d6793644957aa4732c1313e34247592e284ce9dab4c7085d3629be",
+  "originHash" : "1691532fce08279fc3bb7b7fb3ba877ca11219806a212c2a794d9e6e71a64661",
   "pins" : [
     {
       "identity" : "ihttp_client",
@@ -8,24 +8,6 @@
       "state" : {
         "branch" : "main",
         "revision" : "7b0d25d9668801151f063327ed9f6f516ca4c671"
-      }
-    },
-    {
-      "identity" : "swiftui-introspect",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/siteline/swiftui-introspect",
-      "state" : {
-        "revision" : "807f73ce09a9b9723f12385e592b4e0aaebd3336",
-        "version" : "1.3.0"
-      }
-    },
-    {
-      "identity" : "swiftui-navigation-transitions",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/fox-avokadik/swiftui-navigation-transitions.git",
-      "state" : {
-        "revision" : "76ae9c621422a1f38c30a07c8b7636994b669484",
-        "version" : "0.14.0"
       }
     }
   ],

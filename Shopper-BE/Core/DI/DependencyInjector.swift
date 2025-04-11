@@ -10,7 +10,7 @@ import IHttpClient
 
 actor DependencyInjector {
   static let shared = DependencyInjector()
-  private var isInitialized = false
+  var isInitialized = false
   
   private init() {}
   
@@ -26,9 +26,6 @@ actor DependencyInjector {
     let authenticationManager = AuthenticationManager(authenticationStorage: authenticationStorageService)
     ServiceContainer.shared.register(authenticationManager)
     
-    let coordinator = AppCoordinator()
-    ServiceContainer.shared.register(coordinator)
-    
     let authenticationService = AuthenticationService(httpClient: httpClient)
     let authenticationRepository = AuthenticationRepository(authenticationService: authenticationService)
     let loginUseCase = LoginUseCase(authenticationRepository: authenticationRepository)
@@ -40,6 +37,9 @@ actor DependencyInjector {
       let loginViewModel = LoginViewModel(loginUseCase: loginUseCase)
       ServiceContainer.shared.register(loginViewModel)
     }
+    
+    let coordinator = AppCoordinator()
+    ServiceContainer.shared.register(coordinator)
     
     isInitialized = true
   }

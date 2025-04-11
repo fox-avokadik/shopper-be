@@ -8,7 +8,7 @@
 import SwiftUI
 
 class HomeViewFactory {
-  static func createHomeView() -> some View {
-    return HomeView()
+  static func createHomeView(onLogout: @escaping () -> Void) -> some View {
+    return HomeView(onLogout: onLogout)
   }
 }

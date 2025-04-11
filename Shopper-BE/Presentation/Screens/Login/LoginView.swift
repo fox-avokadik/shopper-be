@@ -1,12 +1,13 @@
 import SwiftUI
 
 struct LoginView: View {
-  @StateObject private var viewModel: LoginViewModel
-  @StateObject private var coordinator: AppCoordinator
+  let onAuthenticated: () -> Void
   
-  init(viewModel: LoginViewModel, coordinator: AppCoordinator) {
+  @StateObject private var viewModel: LoginViewModel
+  
+  init(viewModel: LoginViewModel, onAuthenticated: @escaping () -> Void) {
     self._viewModel = StateObject(wrappedValue: viewModel)
-    self._coordinator = StateObject(wrappedValue: coordinator)
+    self.onAuthenticated = onAuthenticated
   }
   
   var body: some View {
@@ -19,7 +20,7 @@ struct LoginView: View {
     }
     .onChange(of: viewModel.authStatus) {
       if viewModel.authStatus == AuthStatus.success {
-        coordinator.navigateToHome()
+        onAuthenticated()
       }
     }
   }

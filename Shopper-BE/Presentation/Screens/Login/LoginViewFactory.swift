@@ -8,10 +8,9 @@
 import SwiftUI
 
 class LoginViewFactory {
-  static func createLoginView() -> some View {
+  static func createLoginView(onAuthenticated: @escaping () -> Void) -> some View {
     let viewModel: LoginViewModel = ServiceContainer.shared.resolve()
-    let coordinator: AppCoordinator = ServiceContainer.shared.resolve()
     
-    return LoginView(viewModel: viewModel, coordinator: coordinator)
+    return LoginView(viewModel: viewModel, onAuthenticated: onAuthenticated)
   }
 }

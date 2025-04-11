@@ -6,41 +6,21 @@
 //
 
 import SwiftUI
-import NavigationTransitions
 import IHttpClient
 
 struct AppRootView: View {
-  @StateObject private var coordinator: AppCoordinator
-  
-  init() {
-    let coordinator: AppCoordinator = ServiceContainer.shared.resolve()
-    self._coordinator = StateObject(wrappedValue: coordinator)
-  }
+  @StateObject var appCoordinator = AppCoordinator()
   
   var body: some View {
-    NavigationStack(path: $coordinator.path) {
-      HomeViewFactory.createHomeView()
-        .navigationDestination(for: AppScreen.self) { screen in
-          viewForDestination(screen, coordinator: coordinator)
-            .navigationBarBackButtonHidden(true)
-        }
+    Group {
+      if let coordinator = appCoordinator.activeCoordinator,
+         let screen = coordinator.currentScreen {
+        screen
+      }
     }
-    .sheet(item: $coordinator.sheet) { screen in
-      viewForDestination(screen, coordinator: coordinator)
-    }
-    .fullScreenCover(item: $coordinator.fullScreenCover) { screen in
-      viewForDestination(screen, coordinator: coordinator)
-    }
-    .navigationTransition(.fade(.out))
-  }
-  
-  @ViewBuilder
-  func viewForDestination(_ screen: AppScreen, coordinator: AppCoordinator) -> some View {
-    switch screen {
-    case .login:
-      LoginViewFactory.createLoginView()
-    case .home:
-      HomeViewFactory.createHomeView()
+    .animation(.easeInOut, value: appCoordinator.currentState)
+    .onAppear {
+      appCoordinator.start()
     }
   }
 }
